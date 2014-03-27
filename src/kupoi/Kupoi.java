@@ -26,10 +26,15 @@ public class Kupoi {
      * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws SQLException, IOException {
-        // Franquiciado franquiciado = new Franquiciado("Franquiciado", "Franchise","password", "4313333", "Calle Franchise", "franchise@franquicia.com", "phone");
-        //Consultas.cuponesPublicados(1);
-        //Consultas.busquedaDireccion(Consultas.Tabla.COMERCIO, Consultas.Param.COUNTRY);
-        //Consultas.busquedaDireccion(Consultas.Tabla.USUARIO, Consultas.Param.CP);
+        
+        
+        
+        
+          probarCuponesUsuario();
+//        Franquiciado franquiciado = new Franquiciado("Franquiciado", "Franchise", "password", "4313333", "Calle Franchise", "franchise@franquicia.com", "phone");
+//        Consultas.cuponesPublicados(1);
+//        Consultas.busquedaDireccion(Consultas.Tabla.COMERCIO, Consultas.Param.COUNTRY);
+//        Consultas.busquedaDireccion(Consultas.Tabla.USUARIO, Consultas.Param.CP);
 //        Consultas.listadoNombreParecido(Consultas.Tabla.CUPON, "c");
 //        Consultas.listadoEmails(Consultas.Tabla.USUARIO);
 //        Consultas.listadoNombre(Consultas.Tabla.FRANQUICIADO);
@@ -46,7 +51,7 @@ public class Kupoi {
 //        pruebaFranquiciado();
 //        Imagen.guardarPNG("cat.jpg");
 //        Imagen.resizeImage("cat.jpg");
-////      Imagen.guardarJPG("cata.png");
+//        Imagen.guardarJPG("cata.png");
 //        crearMensaje();
 //        crearNotificacion();
 //        probarNotificacion();
@@ -86,6 +91,24 @@ public class Kupoi {
 
     }
 
+    
+    public static void crearCuponesUsuarios() throws SQLException{
+        CuponesUsuario cu = new CuponesUsuario(1,1,new java.sql.Date(fecha.getTime()), 25.5, "cuponeado");
+    }
+    public static void probarCuponesUsuario() throws SQLException{
+        CuponesUsuario cu = new CuponesUsuario(1,new java.sql.Date(fecha.getTime()));
+        cu.setEstado("Apagado");
+        cu.setFecha_compra(new java.sql.Date(fecha.getTime()));
+        cu.setId_cupon(1);
+        cu.setId_usuario(1);
+        cu.setPrecio(26.5);
+        System.out.println(cu.getEstado());
+        System.out.println(cu.getFecha_compra());
+        System.out.println(cu.getId());
+        System.out.println(cu.getId_usuario());
+        System.out.println(cu.getId_cupon());
+        System.out.println(cu.getPrecio());
+    }
     public static void crearMensaje() throws SQLException {
         Mensaje mensaje = new Mensaje(1, 1, new java.sql.Date(fecha.getTime()), "Mena", "MenaMena");
     }
