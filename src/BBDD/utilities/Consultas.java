@@ -18,7 +18,9 @@ public class Consultas {
     public enum Tabla{
          USUARIO, FRANQUICIADO, FRANQUICIA, COMERCIO, CUPON, MENSAJE, NOTIFICACION
      }
-
+    public enum Param{
+         FULLADDRESS, CITY, STATEORPROVINCE, CP, COUNTRY
+    }
      /**
      *
      * Base de datos
@@ -64,6 +66,31 @@ public class Consultas {
         }
            return null;
     }
+    
+    private static String selectParam (Param p){
+        switch (p){
+            case FULLADDRESS:
+                return("fulladdress");
+            case CITY:
+                return("city");
+            case COUNTRY:
+                return("country");
+            case CP:
+                return("cp");
+            case STATEORPROVINCE:
+                return("stateorprovince");
+        }
+        return null;
+    }
+    public static void busquedaDireccion(Tabla t, Param p) throws SQLException{
+        establecerConexion();
+        sql="Select "+selectParam(p)+" from "+selectTable(t);
+        stm=conexion.con.prepareStatement(sql);
+        rs=stm.executeQuery();
+        while(rs.next()){
+            System.out.println(rs.getString(1));
+        }
+    }
     public static void listadoEmails(Tabla t) throws SQLException{
         establecerConexion();
     
@@ -87,12 +114,13 @@ public class Consultas {
         }
     }
     
-    public static void listadoNombreParecido(Tabla t, String nombre) throws SQLException{
+    public static void listadoNombreParecido(Tabla t, String busqueda) throws SQLException{
         establecerConexion();
-        sql="Select name from "+selectTable(t)+" where businessname like ?";
+        sql="Select name from "+selectTable(t)+" where name like ?";
         if (t==Consultas.Tabla.USUARIO) sql="Select username from "+selectTable(t)+" where username like ?";
         if (t==Consultas.Tabla.COMERCIO) sql="Select businessname from "+selectTable(t)+" where businessname like ?";
         stm=conexion.con.prepareStatement(sql);
+        stm.setString(1,"%"+busqueda+"%");
         rs=stm.executeQuery();
         while(rs.next()){
             System.out.println(rs.getString(1));

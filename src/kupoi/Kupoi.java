@@ -27,10 +27,11 @@ public class Kupoi {
      */
     public static void main(String[] args) throws SQLException, IOException {
         // Franquiciado franquiciado = new Franquiciado("Franquiciado", "Franchise","password", "4313333", "Calle Franchise", "franchise@franquicia.com", "phone");
-
-
-Consultas.listadoEmails(Consultas.Tabla.USUARIO);
-Consultas.listadoNombre(Consultas.Tabla.FRANQUICIADO);
+          Consultas.busquedaDireccion(Consultas.Tabla.COMERCIO, Consultas.Param.COUNTRY);
+          Consultas.busquedaDireccion(Consultas.Tabla.USUARIO, Consultas.Param.CP);
+//        Consultas.listadoNombreParecido(Consultas.Tabla.CUPON, "c");
+//        Consultas.listadoEmails(Consultas.Tabla.USUARIO);
+//        Consultas.listadoNombre(Consultas.Tabla.FRANQUICIADO);
 //        UserManagement.registroUsuario("Menaa", "axel@axel.es", "coop", "España", "Baleares");
 //        UserManagement.registroComercio("AxCoopee", "axel@coop.es", "axel", "Esp5aña", "Ca5lle Axel", "C5iudad", "Mexi5co", "0693593", true);
 //        UserManagement.registroFranquiciado("name", "surname", "password", "NIF", "address", "email35@gmail.com", "telefono");
