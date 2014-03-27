@@ -6,6 +6,7 @@
 package kupoi;
 
 import BBDD.tables.*;
+import BBDD.utilities.Consultas;
 import BBDD.utilities.UserManagement;
 import Utilities.Imagen;
 import java.io.IOException;
@@ -28,7 +29,8 @@ public class Kupoi {
         // Franquiciado franquiciado = new Franquiciado("Franquiciado", "Franchise","password", "4313333", "Calle Franchise", "franchise@franquicia.com", "phone");
 
 
-
+Consultas.listadoEmails(Consultas.Tabla.USUARIO);
+Consultas.listadoNombre(Consultas.Tabla.FRANQUICIADO);
 //        UserManagement.registroUsuario("Menaa", "axel@axel.es", "coop", "España", "Baleares");
 //        UserManagement.registroComercio("AxCoopee", "axel@coop.es", "axel", "Esp5aña", "Ca5lle Axel", "C5iudad", "Mexi5co", "0693593", true);
 //        UserManagement.registroFranquiciado("name", "surname", "password", "NIF", "address", "email35@gmail.com", "telefono");
@@ -47,8 +49,8 @@ public class Kupoi {
 ////        Imagen.guardarJPG("cata.png");
 //        crearMensaje();
 //        crearNotificacion();
-        probarNotificacion();
-        probarMensaje();
+//        probarNotificacion();
+//        probarMensaje();
 
         
 
