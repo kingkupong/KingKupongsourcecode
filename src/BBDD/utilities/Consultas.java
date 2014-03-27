@@ -105,6 +105,16 @@ public class Consultas {
             System.out.println(rs.getInt(1));
         }
     }
+     public static void cuponesPublicados(int comercio) throws SQLException {
+        establecerConexion();
+        sql = "Select c.id, c.name from Cupon c, Comercio b where b.id=?";
+        stm = conexion.con.prepareStatement(sql);
+        stm.setInt(1, comercio);
+        rs = stm.executeQuery();
+        while (rs.next()) {
+            System.out.println(rs.getInt(1));
+        }
+    }
     public static void cuponesActivos() throws SQLException {
         establecerConexion();
         sql = "Select id, name from Cupon where SYSDATE()<=DateExpiration";

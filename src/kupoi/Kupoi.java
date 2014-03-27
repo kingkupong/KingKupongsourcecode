@@ -27,8 +27,9 @@ public class Kupoi {
      */
     public static void main(String[] args) throws SQLException, IOException {
         // Franquiciado franquiciado = new Franquiciado("Franquiciado", "Franchise","password", "4313333", "Calle Franchise", "franchise@franquicia.com", "phone");
-          Consultas.busquedaDireccion(Consultas.Tabla.COMERCIO, Consultas.Param.COUNTRY);
-          Consultas.busquedaDireccion(Consultas.Tabla.USUARIO, Consultas.Param.CP);
+        //Consultas.cuponesPublicados(1);
+        //Consultas.busquedaDireccion(Consultas.Tabla.COMERCIO, Consultas.Param.COUNTRY);
+        //Consultas.busquedaDireccion(Consultas.Tabla.USUARIO, Consultas.Param.CP);
 //        Consultas.listadoNombreParecido(Consultas.Tabla.CUPON, "c");
 //        Consultas.listadoEmails(Consultas.Tabla.USUARIO);
 //        Consultas.listadoNombre(Consultas.Tabla.FRANQUICIADO);
@@ -43,19 +44,15 @@ public class Kupoi {
 //        pruebaUsuario();
 //        pruebaFranquicia();
 //        pruebaFranquiciado();
-
-
 //        Imagen.guardarPNG("cat.jpg");
 //        Imagen.resizeImage("cat.jpg");
-////        Imagen.guardarJPG("cata.png");
+////      Imagen.guardarJPG("cata.png");
 //        crearMensaje();
 //        crearNotificacion();
 //        probarNotificacion();
 //        probarMensaje();
-
-        
-
     }
+
     public static void probarMensaje() throws SQLException {
         Mensaje mensaje = new Mensaje(1, Mensaje.Busqueda.ID);
         mensaje.setAsunto("a");
@@ -70,9 +67,9 @@ public class Kupoi {
         System.out.println(mensaje.getMensaje());
         System.out.println(mensaje.getTo_id());
     }
-    
-    public static void probarNotificacion() throws SQLException{
-        Notificacion notificacion = new Notificacion(1,Notificacion.Busqueda.ID);
+
+    public static void probarNotificacion() throws SQLException {
+        Notificacion notificacion = new Notificacion(1, Notificacion.Busqueda.ID);
         notificacion.setAsunto("a");
         notificacion.setEnlace("a.com");
         notificacion.setFecha_enviado(new java.sql.Date(fecha.getTime()));
@@ -86,7 +83,7 @@ public class Kupoi {
         System.out.println(notificacion.getId());
         System.out.println(notificacion.getMensaje());
         System.out.println(notificacion.getTo_id());
-        
+
     }
 
     public static void crearMensaje() throws SQLException {
