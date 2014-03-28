@@ -28,6 +28,12 @@ public class Consultas {
         FULLADDRESS, CITY, STATEORPROVINCE,
         CP, COUNTRY
     }
+    
+    public enum TipoFact {
+
+        EMITIDA, RECIBIDA, NOCOBRADA
+    }
+    
     /**
      *
      * Base de datos
@@ -292,5 +298,107 @@ public class Consultas {
             conexion.con.close();
             return false;
         }
+    }
+    
+    // FACTURAS
+    /**
+     *
+     * @return @throws SQLException
+     */
+    public static ArrayList<Factura> recuperarFacturas() throws SQLException {
+        ArrayList<Factura> facturas = new ArrayList<>();
+        ArrayList<Integer> temp = new ArrayList<>();
+        establecerConexion();
+        sql = "Select id from Facturas";
+        stm = conexion.con.prepareStatement(sql);
+        rs = stm.executeQuery();
+        // Guardamos en una lista temporal los id de todas las facturas
+        while (rs.next()) {
+            temp.add(rs.getInt("id"));
+        }
+        // Cerrar conexiones
+        rs.close();
+        stm.close();
+        conexion.con.close();
+        // Por cada id recuperamos la factura correspondiente
+        for (Integer idfact : temp) {
+            facturas.add(new Factura(idfact));
+        }
+        return facturas;
+    }
+
+    /**
+     *
+     * @param tipo
+     * @param busqueda
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<Factura> recuperarFacturas(TipoFact tipo, int busqueda) throws SQLException {
+        ArrayList<Factura> facturas = new ArrayList<>();
+        ArrayList<Integer> temp = new ArrayList<>();
+        establecerConexion();
+        sql = "Select id from Facturas ";
+        switch (tipo) {
+            case EMITIDA:
+                sql += "where emisorid=? ";
+                break;
+            case RECIBIDA:
+                sql += "where distinatarioid=? ";
+                break;
+            case NOCOBRADA:
+                sql += "where emisorid=? AND cobrado=FALSE ";
+                break;
+        }
+        stm = conexion.con.prepareStatement(sql);
+        stm.setInt(1, busqueda);
+        rs = stm.executeQuery();
+        // Guardamos en una lista temporal los id de todas las facturas
+        while (rs.next()) {
+            temp.add(rs.getInt("id"));
+        }
+        // Cerrar conexiones
+        rs.close();
+        stm.close();
+        conexion.con.close();
+        // Por cada id recuperamos la factura correspondiente
+        for (Integer idfact : temp) {
+            facturas.add(new Factura(idfact));
+        }
+        return facturas;
+    }
+
+    /**
+     *
+     * @param emisorid
+     * @param inicio
+     * @param fin
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<Factura> recuperarFacturas(int emisorid, Date inicio,
+            Date fin) throws SQLException {
+        ArrayList<Factura> facturas = new ArrayList<>();
+        ArrayList<Integer> temp = new ArrayList<>();
+        establecerConexion();
+        sql = "Select id from Facturas where emisorid=?  AND (fechaemision between ? AND ?) ";
+        stm = conexion.con.prepareStatement(sql);
+        stm.setInt(1, emisorid);
+        stm.setDate(2, inicio);
+        stm.setDate(3, fin);
+        rs = stm.executeQuery();
+        // Guardamos en una lista temporal los id de todas las facturas
+        while (rs.next()) {
+            temp.add(rs.getInt("id"));
+        }
+        // Cerrar conexiones
+        rs.close();
+        stm.close();
+        conexion.con.close();
+        // Por cada id recuperamos la factura correspondiente
+        for (Integer idfact : temp) {
+            facturas.add(new Factura(idfact));
+        }
+        return facturas;
     }
 }
