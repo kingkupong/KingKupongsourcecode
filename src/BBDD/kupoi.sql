@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-03-2014 a las 14:03:22
+-- Tiempo de generación: 28-03-2014 a las 10:04:44
 -- Versión del servidor: 5.6.12-log
--- Versión de PHP: 5.4.16
+-- Versión de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -116,6 +116,42 @@ CREATE TABLE IF NOT EXISTS `cuponesusuario` (
 
 INSERT INTO `cuponesusuario` (`id`, `Id_Usuario`, `Id_cupon`, `Fecha_compra`, `Precio`, `Estado`) VALUES
 (1, 1, 1, '2009-02-01', '27', 'Apagado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detallefactura`
+--
+
+CREATE TABLE IF NOT EXISTS `detallefactura` (
+  `id` int(250) NOT NULL AUTO_INCREMENT,
+  `facturaid` int(250) NOT NULL,
+  `concepto` varchar(250) NOT NULL,
+  `cantidad` int(250) NOT NULL,
+  `precio` decimal(65,0) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `FK_FACTURAID` (`facturaid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `factura`
+--
+
+CREATE TABLE IF NOT EXISTS `factura` (
+  `id` int(250) NOT NULL AUTO_INCREMENT,
+  `numerofactura` varchar(250) NOT NULL,
+  `destinatarioid` int(250) NOT NULL,
+  `fechaemision` date NOT NULL,
+  `fechavencimiento` date NOT NULL,
+  `emisorid` int(250) NOT NULL,
+  `tipodocumento` varchar(250) NOT NULL,
+  `Importe` decimal(65,0) NOT NULL,
+  `cobrado` tinyint(1) NOT NULL,
+  `fechacobro` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -279,6 +315,12 @@ ALTER TABLE `cupon`
 ALTER TABLE `cuponesusuario`
   ADD CONSTRAINT `cuponesusuario_ibfk_2` FOREIGN KEY (`Id_cupon`) REFERENCES `cupon` (`id`),
   ADD CONSTRAINT `cuponesusuario_ibfk_1` FOREIGN KEY (`Id_Usuario`) REFERENCES `usuario` (`id`);
+
+--
+-- Filtros para la tabla `detallefactura`
+--
+ALTER TABLE `detallefactura`
+  ADD CONSTRAINT `detallefactura_ibfk_1` FOREIGN KEY (`facturaid`) REFERENCES `factura` (`id`);
 
 --
 -- Filtros para la tabla `franquicia`
