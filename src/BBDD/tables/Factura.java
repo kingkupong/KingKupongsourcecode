@@ -220,7 +220,7 @@ public class Factura {
      * Setters
      *
      */
-    public void setterSQL(Variable v) {
+    private void setterSQL(Variable v) {
         sql = "Update " + TABLA + " set " + setVariable(v) + " where id=?";
     }
 
