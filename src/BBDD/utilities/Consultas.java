@@ -17,12 +17,16 @@ public class Consultas {
 
     public enum Tabla {
 
-        USUARIO, FRANQUICIADO, FRANQUICIA, COMERCIO, CUPON, MENSAJE, NOTIFICACION
+        USUARIO, FRANQUICIADO, FRANQUICIA,
+        COMERCIO, CUPON, MENSAJE,
+        NOTIFICACION, FACTURA, CUPONESUSUARIO,
+        DETALLEFACTURA
     }
 
-    public enum Param {
+    public enum Pos {
 
-        FULLADDRESS, CITY, STATEORPROVINCE, CP, COUNTRY
+        FULLADDRESS, CITY, STATEORPROVINCE,
+        CP, COUNTRY
     }
     /**
      *
@@ -64,11 +68,17 @@ public class Consultas {
                 return ("Mensaje");
             case NOTIFICACION:
                 return ("Notificacion");
+            case FACTURA:
+                return ("Factura");
+            case DETALLEFACTURA:
+                return("detallefactura");
+            case CUPONESUSUARIO:
+                return("CuponesUsuario");
         }
         return null;
     }
 
-    private static String selectParam(Param p) {
+    private static String selectParam(Pos p) {
         switch (p) {
             case FULLADDRESS:
                 return ("fulladdress");
@@ -83,7 +93,9 @@ public class Consultas {
         }
         return null;
     }
+    
 
+    
     public static void cuponesActivos(int comercio) throws SQLException {
         establecerConexion();
         sql = "Select c.id, c.name from Cupon c, Comercio b where DateExpiration>=SYSDATE() and b.id=?";
@@ -137,7 +149,7 @@ public class Consultas {
         }
     }
 
-    public static void busquedaDireccion(Tabla t, Param p) throws SQLException {
+    public static void busquedaDireccion(Tabla t, Pos p) throws SQLException {
         establecerConexion();
         sql = "Select " + selectParam(p) + " from " + selectTable(t);
         stm = conexion.con.prepareStatement(sql);
