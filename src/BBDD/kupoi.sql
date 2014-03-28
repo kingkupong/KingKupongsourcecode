@@ -156,7 +156,10 @@ CREATE TABLE IF NOT EXISTS `factura` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `franquicia`
+-- Estructura de tabla para la tabla `franquicia` 
+
+
+
 --
 
 CREATE TABLE IF NOT EXISTS `franquicia` (
