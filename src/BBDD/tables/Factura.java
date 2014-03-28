@@ -27,6 +27,10 @@ public class Factura {
         FECHAEMISION, FECHAVENCIMIENTO, EMISORID,
         TIPODOCUMENTO, IMPORTE, COBRADO, FECHACOBRO
     }
+    
+    public enum Tipo{
+        NORMAL, RECTIFICATIVA
+    }
     private Variable v;
     
     private final String TABLA = "FACTURA";
@@ -52,9 +56,31 @@ public class Factura {
     private PreparedStatement stm = null;
     private String sql;
     private ResultSet rs;
-
-    public Factura(String numerofactura, int destinatarioid, Date fechaemision, Date fechavencimiento, int emisorid, String tipodocumento, Double importe, boolean cobrado) throws SQLException {
-        this.numerofactura=numerofactura;
+    
+    
+    
+    public Factura (int id, Busqueda b) throws SQLException
+    {
+        this.id = id;
+        establecerConexion();
+        sql = "Select "+setVariable(v.NUMEROFACTURA)+", "+setVariable(v.DESTINATARIOID)+","+setVariable(v.FECHAEMISION)+", "+setVariable(v.FECHAVENCIMIENTO)+","
+                + ""+setVariable(v.EMISORID)+","+setVariable(v.TIPODOCUMENTO)+", "+setVariable(v.IMPORTE)+", "+setVariable(v.COBRADO)+" FROM "+TABLA+" where id=?";
+        stm = conexion.con.prepareStatement(sql);
+        stm.setInt(1, id);
+        rs = stm.executeQuery();
+        rs.next();
+        this.numerofactura = rs.getString(setVariable(v.NUMEROFACTURA));
+        this.destinatarioid = rs.getInt(setVariable(v.DESTINATARIOID));
+        this.fechaemision = rs.getDate(setVariable(v.FECHAEMISION));
+        this.emisorid = rs.getInt(setVariable(v.EMISORID));
+        this.tipodocumento= rs.getString(setVariable(v.TIPODOCUMENTO));
+        this.importe = rs.getDouble(setVariable(v.IMPORTE));
+        this.cobrado = rs.getBoolean(setVariable(v.COBRADO));
+        getFechacobroBBDD();
+        conexion.con.close();
+    }
+    public Factura(Tipo t,int destinatarioid, Date fechaemision, Date fechavencimiento, int emisorid, String tipodocumento, Double importe, boolean cobrado) throws SQLException {
+        this.numerofactura=numeroFactura(t);
         this.destinatarioid=destinatarioid;
         this.fechaemision=fechaemision;
         this.fechavencimiento=fechavencimiento;
@@ -78,10 +104,45 @@ public class Factura {
         stm.execute();
         getIdBBDD();
         conexion.con.close();
+    }
     
-    
-    
-    
+    private String numeroFactura(Tipo t) throws SQLException{
+        //KK<año>F<id:6>
+        //RKK<año>F<id:6>
+        String temp = null;
+        sql="Select "+setVariable(v.NUMEROFACTURA)+" FROM "+TABLA+" WHERE id=(Select max(id) from "+TABLA+")";
+        rs = stm.executeQuery(sql);
+        while (rs.next()) {
+           temp=rs.getString(1);
+        }
+        
+        //Creación de subStrings
+        String Kyear = temp.split("F")[0]; //KK2014
+        String fid = temp.split("F")[1]; //000000
+        int intid;
+        //Tratamiento de la Factura-ID
+        intid=Integer.parseInt(fid)+1;
+        fid=""+intid;
+        for (int i=6; i>fid.length(); i--)
+        {
+            fid="0"+fid;
+        }
+        
+        
+        
+        //Tratamiento del YEAR
+        
+        Kyear=Kyear.substring(Kyear.length()-4, Kyear.length());
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        return null;
     }
 
     /**
@@ -163,7 +224,7 @@ public class Factura {
         sql = "Update " + TABLA + " set " + setVariable(v) + " where id=?";
     }
 
-    public String setVariable(Variable v) {
+    private String setVariable(Variable v) {
         switch (v) {
             case ID:
             case NUMEROFACTURA:
@@ -301,6 +362,16 @@ public class Factura {
         }
         conexion.con.close();
 
+    }
+    
+    private void getFechacobroBBDD() throws SQLException{
+        establecerConexion();
+        sql = "Select "+setVariable(v.FECHACOBRO)+" FROM "+TABLA+" where id=?";
+        stm = conexion.con.prepareStatement(sql);
+        stm.setInt(1, id);
+        rs = stm.executeQuery();
+        if(rs.next())this.fechacobro=(rs.getDate(setVariable(v.FECHACOBRO)));
+        conexion.con.close();
     }
     private void establecerConexion() throws SQLException {
         if (conexion == null) {
