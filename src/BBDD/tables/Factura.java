@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 /**
  *
@@ -107,6 +108,8 @@ public class Factura {
     }
     
     private String numeroFactura(Tipo t) throws SQLException{
+        Calendar c1 = Calendar.getInstance();
+        int actual = c1.get(Calendar.YEAR);
         //KK<año>F<id:6>
         //RKK<año>F<id:6>
         String temp = null;
@@ -127,23 +130,18 @@ public class Factura {
         {
             fid="0"+fid;
         }
-        
-        
-        
-        //Tratamiento del YEAR
-        
+        //Tratamiento del YEAR   
         Kyear=Kyear.substring(Kyear.length()-4, Kyear.length());
         
-        
-        
-        
-        
-        
-        
-        
-        
-        return null;
-    }
+        if(actual>Integer.parseInt(Kyear))
+        {   
+           fid="000000";
+           Kyear=""+actual;
+        }
+        temp="KK"+Kyear+"F"+fid;
+        if (t==Tipo.RECTIFICATIVA) temp="R"+temp;
+        return temp;
+        }
 
     /**
      * @return the id
