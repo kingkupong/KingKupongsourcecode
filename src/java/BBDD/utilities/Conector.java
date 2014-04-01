@@ -32,11 +32,15 @@ public class Conector {
      * @param usuario - Usuario de la base de datos
      * @param password - Contraseña de la base de datos
      */
-    public Conector() throws ClassNotFoundException {
+    public Conector() {
 
         if (con == null) {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 con = DriverManager.getConnection("jdbc:mysql://" + adress, usuario, password);
             } catch (SQLException ex) {
                 Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);

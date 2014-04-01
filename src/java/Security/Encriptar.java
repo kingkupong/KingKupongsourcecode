@@ -41,11 +41,5 @@ public static String byteArrayToHexString(byte[] b) {
   return result;
 }
 
-
-
-   
-
-    
-
   }
 
