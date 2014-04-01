@@ -14,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
  * @author Administrador
  */
 public class Encriptar {
-    private static byte[] yo;
     
     
     
@@ -40,6 +39,5 @@ public static String byteArrayToHexString(byte[] b) {
   }
   return result;
 }
-
   }
 
