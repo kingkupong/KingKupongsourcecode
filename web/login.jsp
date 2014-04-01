@@ -10,7 +10,7 @@
 <head>
 	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
 	 <link rel="stylesheet" type="text/css" href="style.css">
-	 <title>Login Page</title>
+	 <title>King Kupong - Entrar</title>
 </head>
 <body>
 <center>
@@ -18,7 +18,7 @@
 		 <form id="form" name="form" method="post" action="LoginServlet">
 			 <h1>Login</h1>
 			 <p>Por favor logueate 
-				 <br/>¿Usuario Nuevo? <a href="register.jsp">¡Regístrate</a></p>
+				 <br/>¿Usuario Nuevo? <a href="register.jsp">¡Regístrate!</a></p>
 			 <label>
 				 <span>Correo</span>
 			 </label>

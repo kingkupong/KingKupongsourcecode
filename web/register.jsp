@@ -10,10 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Registro de Usuario</title>
+        <title>King Kupong - Registro</title>
     </head>
     <body>
-
+        <a href="index.jsp">Volver a home </a>
         <form method="post" action="RegisterServlet" name="registro">
             Email <input name="email"><br>
             User: <input name="user"><br>
