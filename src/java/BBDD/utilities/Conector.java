@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 public class Conector {
 
     public Connection con = null;
-    private PreparedStatement stm = null;
     private String adress = "localhost/kupoi";
     private String usuario = "root";
     private String password = "";
@@ -36,15 +35,12 @@ public class Conector {
 
         if (con == null) {
             try {
-                try {
+                 
                     con = DriverManager.getConnection("jdbc:mysql://" + adress, usuario, password);
-                    Class.forName("com.mysql.jdbc.Driver");
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                    //Class.forName("com.mysql.jdbc.Driver");   
             } catch (SQLException ex) {
-                Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);                
+                
             }
         }
     }
