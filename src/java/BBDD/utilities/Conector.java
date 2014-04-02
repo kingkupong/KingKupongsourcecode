@@ -37,11 +37,12 @@ public class Conector {
         if (con == null) {
             try {
                 try {
+                    con = DriverManager.getConnection("jdbc:mysql://" + adress, usuario, password);
                     Class.forName("com.mysql.jdbc.Driver");
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                con = DriverManager.getConnection("jdbc:mysql://" + adress, usuario, password);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
             }
